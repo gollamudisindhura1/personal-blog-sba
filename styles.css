@@ -5,7 +5,16 @@ body {
   min-height: 100vh;
 }
 
-/* Smooth hover animations */
+.gradient-header {
+  background: linear-gradient(120deg, #e91e63, #9c27b0, #673ab7);
+}
+.gradient-header h1 {
+  font-family: "Dancing Script", cursive;
+  letter-spacing: 2px;
+  text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+
 .card, .post-card {
   transition: all 0.3s ease;
 }
@@ -24,7 +33,7 @@ body {
 }
 .post-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 25px 50px rgba(156,39,176,0.4);
 }
 
 .post-title {

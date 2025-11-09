@@ -1,31 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Blog</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>ColorFul Personal Blog</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-  <!-- Google Fonts: Poppins -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css" />
-    <script defer src="script.js"></script>
+    <!-- SweetAlert2 -->
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
 
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
 </head>
-<body class="bg-light">
+
+<body>
     <!-- Header -->
-    <header class = "text-center py-5 bg-primary text-white">
-        <div class ="container">
-            <h1 class="display-4 fw-bold">Personal Blog</h1>
-            <p class="lead mb-0">This is the Space to capture your thoughts, ideas, and memories.</p>
+    <header class="text-center py-5 gradient-header text-white">
+        <div class="container">
+            <h1 class="display-3 fw-bold">Blossom Diary 🌹</h1>
+            <p class="lead mb-0">This is the Space to capture your thoughts, ideas, and memories. Bloom Your Thoughts 🌸</p>
+            <button class="btn btn-light mt-4 fw-semibold px-5 shadow-lg" data-bs-toggle="modal"
+                data-bs-target="#postModal">+ Write a Petal ❁</button>
         </div>
     </header>
     <!-- Main Content -->
     <main class="container py-5">
+        <section>
+            <div id="postsList" class="row g-4" aria-live="polite"></div>
+        </section>
+    </main>
 
-        <!-- Post form -->
-         <section aria-labelledby="form-heading" class="mb-4">
-            <div class="row justify-content-center">
+    <!-- Post form  : Added Modal Form-->
+
+    <!-- <div class="modal fade" id ="postModal" tabIndex="-1" aria-labelledby="postModalLabel" aria-hidden="true"></div>>
                 <div class ="cpl-lg-9">
                     <article class="card shadow-lg border-0">
                         <div class="card-body p-5">
@@ -71,12 +84,48 @@
       <div id="postsList" class="row g-4" role="region" aria-live="polite"></div>
     </section>
 
-    </main>
-    <footer class="bg-dark text-white text-center py-4 mt-5">
-    <div class="container">
-      <p class="mb-0">&copy; <span id="year"></span>Personal Blog. All thoughts preserved with localStorage.</p>
+    </main> -->
+    <!-- Modal Form -->
+     <div class = "modal fade" id ="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="postModalLabel">Create New Post</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4">
+            <form  id="postForm" novalidate>
+                <div class="mb-4">
+                    <label for ="title" class="form-label text-white fw-semibold">Title<span class="text-danger">*</span></label>
+                    <input type="text" id ="title" class="form-control form-control-lg" required/>
+                    <div id="titleError" class="invalid-feedback"></div>
+                </div>
+                <div class="mb-4">
+              <label for="content" class="form-label text-white fw-semibold">Content <span class="text-danger">*</span></label>
+              <textarea id="content" class="form-control" rows="6" required></textarea>
+              <div id="contentError" class="invalid-feedback"></div>
+            </div>
+            <div class="d-flex justify-content-end gap-3">
+              <button type="button" class="btn btn-outline-light border-2" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" id="submitBtn" class="btn btn-primary px-5">Plant Post</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-  </footer>
+  </div>
+
+            
+    <footer class="text-light bg-dark text-center py-4 mt-5">
+        <p class="mb-2">© <span id="year"></span> Blossom Diary — Grown with localStorage</p>
+    <p class="mb-0">
+      <a href="#" id="storageCounter" class="text-pink fw-bold text-decoration-underline">
+        You have <span id="postCount">0</span> blossom(s) saved
+      </a>
+    </p>
+        
+    </footer>
 
 </body>
+
 </html>
