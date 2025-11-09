@@ -11,10 +11,10 @@ const titleError = document.getElementById("titleError");
 const contentError = document.getElementById("contentError");
 
 let posts = []
-let editingId =[]
+let editingId = null
 
 function loadPosts(){
-    const saved = localStorage.getItem("blogPosta")
+    const saved = localStorage.getItem("blogPosts")
     if (saved) posts= JSON.parse(saved)
         renderPosts()
 }
@@ -79,12 +79,12 @@ posts.forEach(post =>{
 form.addEventListener("submit", e=>{
     e.preventDefault()
     if(!validateForm()) return
-    const tittle = titleInput.value.trim()
+    const title = titleInput.value.trim()
     const content = contentInput.value.trim()
 
     if(editingId){
         const post = posts.find(p => p.id ===editingId)
-        post.tittle = tittle
+        post.title = title
         post.content= content
         editingId = null
         submitBtn.textContent ="Add Post"
@@ -93,8 +93,8 @@ form.addEventListener("submit", e=>{
         
     }else {
         posts.unshift({
-            id.generateId(),
-            tittle,
+            id:generateId(),
+            title,
             content,
             timestamp: new Date().toISOString()
         })
@@ -115,6 +115,37 @@ cancelBtn.addEventListener("click", ()=>{
     titleError.textContent = "";
     contentError.textContent = "";
 })
+//Event Deletion
+
+postsList.addEventListener("click", e => {
+  const btn = e.target;
+
+  if (btn.classList.contains("btn-delete")) {
+    if (confirm("Permanently delete this post?")) {
+      const id = btn.dataset.id;
+      posts = posts.filter(p => p.id !== id);
+      savePosts();
+      renderPosts();
+    }
+  }
+
+  if (btn.classList.contains("btn-edit")) {
+    const id = btn.dataset.id;
+    const post = posts.find(p => p.id === id);
+
+    titleInput.value = post.title;
+    contentInput.value = post.content;
+    editingId = id;
+
+    submitBtn.textContent = "Update Post";
+    formTitle.textContent = "Edit Post";
+    cancelBtn.style.display = "inline-block";
+    titleInput.focus();
+  }
+});
+
+// Init
+loadPosts();
 
 
 
