@@ -76,5 +76,34 @@ posts.forEach(post =>{
 })
 }
 //Submit Form
+form.addEventListener("submit", e=>{
+    e.preventDefault()
+    if(!validateForm()) return
+    const tittle = titleInput.value.trim()
+    const content = contentInput.value.trim()
+
+    if(editingId){
+        const post = posts.find(p => p.id ===editingId)
+        post.tittle = tittle
+        post.content= content
+        editingId = null
+        submitBtn.textContent ="Add Post"
+        formTitle.textContent="Create New Post"
+        cancelBtn.style.display = "none"
+        
+    }else {
+        posts.unshift({
+            id.generateId(),
+            tittle,
+            content,
+            timestamp: new Date().toISOString()
+        })
+    }
+    savePosts()
+    renderPosts()
+    form.reset()
+})
+
+
 
 
