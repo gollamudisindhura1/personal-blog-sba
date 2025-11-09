@@ -104,6 +104,18 @@ form.addEventListener("submit", e=>{
     form.reset()
 })
 
+// Event  to the Cancel Edit 
+
+cancelBtn.addEventListener("click", ()=>{
+    editingId = null
+    submitBtn.textContent ="Add Post"
+    formTitle.textContent="Create New Posts"
+    cancelBtn.style.display = "none";
+    form.reset();
+    titleError.textContent = "";
+    contentError.textContent = "";
+})
+
 
 
 
