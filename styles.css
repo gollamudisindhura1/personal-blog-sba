@@ -91,7 +91,7 @@ body {
   border-radius: 50px;
 }
 
-.btn-edit:hover { #fff; transform: translateY(-2px); }
+.btn-edit:hover { background: #fff; transform: translateY(-2px); }
 .btn-delete:hover { background: #c2185b; }
 
 
@@ -116,7 +116,7 @@ footer {
   color: #ccc;
   margin-top: 3rem;
   
-} */
+} 
 .modal-content {
   border-radius: 28px;
   border: none;
@@ -169,7 +169,6 @@ footer {
   color: white;
 }
 
-/* Buttons */
 #submitBtn {
   background: linear-gradient(135deg, #ec407a, #ab47bc);
   border: none;
