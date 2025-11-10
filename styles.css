@@ -77,18 +77,20 @@ body {
 
 .btn-edit {
   background: rgba(255, 255, 255, 0.95);
-  color: #8e24aa !important; 
+  color: #6d1b7b !important;
   border: none; 
-  font-weight: 600;
+  font-weight: 700;
   border-radius: 50px;
   box-shadow: 0 4px 15px rgba(142, 36, 170, 0.4);
+  min-width: 80px;
 }
 .btn-delete {
- background: rgba(211, 47, 47, 0.9); 
+ background: rgba(220, 38, 38, 0.95) !important;
   color: #fff !important; 
   border: none; 
   font-weight: 600;
   border-radius: 50px;
+  min-width: 80px;
 }
 
 .btn-edit:hover { background: #fff; transform: translateY(-2px); }
