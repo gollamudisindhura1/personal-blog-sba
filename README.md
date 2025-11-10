@@ -9,4 +9,16 @@ A simple client-side personal blog (journal) built for the Skills-Based Assessme
 - Event delegation greatly simplifies handling actions on dynamically created elements (like posts).
 - Validating inputs and giving friendly error messages creates a better UX.
 
+# Resources & References
 
+Bootstrap 5 Modal Docs - https://getbootstrap.com/docs/5.3/components/modal/
+
+MDN: localStorage - https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+
+MDN: https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event
+
+MDN: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
+
+JavaScript Array Methods - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+W3Schools: Bootstrap Buttons - https://www.w3schools.com/bootstrap5/bootstrap_buttons.php
