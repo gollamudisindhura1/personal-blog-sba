@@ -18,6 +18,8 @@ let editingId = null;
 const colors = ["#e91e63", "#ec407a", "#ba68c8", "#9c27b0", "#ab47bc", "#7b1fa2", "#d81b60"];
 let colorIndex = 0;
 
+// Sweet alert link https://sweetalert2.github.io/#
+
 // Save Functions
 function loadPosts() {
   const saved = localStorage.getItem("blossomDiaryPosts");
@@ -249,4 +251,44 @@ storageCounter.addEventListener("click", e => {
 
     document.getElementById("year").textContent = new Date().getFullYear();
     loadPosts();
+    // DARK MODE TOGGLE
+const themeToggle = document.getElementById("themeToggle");
+const body = document.body;
+
+// Load saved theme
+if (localStorage.getItem("theme") === "dark") {
+    body.classList.add("dark-mode");
+    themeToggle.innerHTML = "Light Mode";
+}
+
+// Toggle function
+themeToggle.addEventListener("click", () => {
+    body.classList.toggle("dark-mode");
+    
+    if (body.classList.contains("dark-mode")) {
+        themeToggle.innerHTML = "Light Mode";
+        localStorage.setItem("theme", "dark");
+        Swal.fire({
+            icon: "success",
+            title: "Dark Mode On",
+            text: "Welcome to the cozy side",
+            timer: 1500,
+            showConfirmButton: false,
+            background: "#2d1b3a",
+            color: "#e1bee7"
+        });
+    } else {
+        themeToggle.innerHTML = "Dark Mode";
+        localStorage.setItem("theme", "light");
+        Swal.fire({
+            icon: "success",
+            title: "Light Mode On",
+            text: "Back to blossom vibes",
+            timer: 1500,
+            showConfirmButton: false,
+            background: "#fdf2f8",
+            color: "#e91e63"
+        });
+    }
+});
 });

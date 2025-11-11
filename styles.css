@@ -180,3 +180,60 @@ footer {
   color: #ccc;
   
 } 
+/* DARK MODE */
+body.dark-mode {
+  background: linear-gradient(135deg, #2d1b3a 0%, #1a1a2e 100%);
+  color: #e0d4e8;
+}
+
+.dark-mode .gradient-header {
+  background: linear-gradient(120deg, #9c27b0, #673ab7, #512da8);
+}
+
+.dark-mode .post-card {
+  background: rgba(30, 20, 45, 0.9) !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(156, 39, 176, 0.3);
+}
+
+.dark-mode .post-title,
+.dark-mode .post-content,
+.dark-mode .post-meta {
+  color: #fff !important;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+.dark-mode .modal-content {
+  background: #2d1b3a !important;
+  border: 1px solid #ab47bc;
+}
+
+.dark-mode .modal-header {
+  background: linear-gradient(135deg, #ab47bc, #9c27b0);
+}
+
+.dark-mode .form-control {
+  background: #3e2c52 !important;
+  border-color: #ab47bc;
+  color: #fff;
+}
+
+.dark-mode .form-control::placeholder {
+  color: #d8bfd8;
+}
+
+.dark-mode .form-label {
+  color: #e1bee7 !important;
+}
+
+.dark-mode footer {
+  background: #16213e !important;
+}
+
+.dark-mode .empty-state {
+  color: #ba68c8;
+}
+
+.dark-mode #storageCounter:hover {
+  color: #ec407a !important;
+}

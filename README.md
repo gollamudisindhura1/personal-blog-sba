@@ -14,7 +14,7 @@ A simple client-side personal blog (journal) built for the Skills-Based Assessme
 These resources were invaluable during debugging and learning:
 
 - Bootstrap 5 Modal Documentation – getbootstrap.com/docs/5.3/components/modal
-- SweetAlert2 Examples – github.com/sweetalert2/sweetalert2
+- SweetAlert2 Examples – github.com/sweetalert2/sweetalert2--https://sweetalert2.github.io/#
 - MDN Web Docs: localStorage – developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
 - CSS Tricks: backdrop-filter caveats – css-tricks.com/almanac/properties/b/backdrop-filter
 - Stack Overflow: Bootstrap modal backdrop removal – Multiple threads on modal stuck issues
