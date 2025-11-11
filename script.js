@@ -109,7 +109,15 @@ form.addEventListener("submit", (e) => {
   e.preventDefault();
   console.log(" Form submitted.");
 
-  if (!validateForm()) return;
+    if (!validateForm()) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please fill in both title and content!",
+                confirmButtonColor: "#e91e63"
+            });
+            return;
+          }
 
   const title = titleInput.value.trim();
   const content = contentInput.value.trim();
@@ -122,7 +130,15 @@ form.addEventListener("submit", (e) => {
             editingId = null;
             submitBtn.textContent = "Add Post";
             document.getElementById("postModalLabel").textContent = "Create New Post";
-            alert("Post updated!");
+            Swal.fire({
+                icon: "success",
+                title: "Updated!",
+                text: "Your post has been updated successfully!",
+                timer: 2000,
+                showConfirmButton: false,
+                background: "#fdf2f8",
+                color: "#e91e63"
+            });
   } else {
     posts.unshift({ 
     id: Date.now().toString(), 
@@ -130,11 +146,18 @@ form.addEventListener("submit", (e) => {
     content, 
     color, 
     timestamp: new Date().toISOString() });
-
-   
-    alert("New post added successfully!");
-  }
-
+    Swal.fire({
+                icon: "success",
+                title: "Posted!",
+                text: "Your new post has been added!",
+                timer: 2000,
+                showConfirmButton: false,
+                background: "#fdf2f8",
+                color: "#e91e63",
+                iconColor: "#e91e63"
+            });
+        }
+ 
   savePosts();
   renderPosts();
   updateCounter();
@@ -153,29 +176,41 @@ form.addEventListener("submit", (e) => {
 });
 
 
-// Event Deletion 
+// Event Deletion  and edit
 postsList.addEventListener("click", e => {
-  const btn = e.target;
-  if (!btn.matches("button")) return;
+        const btn = e.target;
+        if (!btn.matches("button")) return;
+        const id = btn.dataset.id;
 
- const id = btn.dataset.id;
-  console.log("Button clicked:", btn.className, "for post ID:", id);
+        if (btn.classList.contains("btn-delete")) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to recover this post!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Yes, delete it!",
+                background: "#fdf2f8"
+            }).then(result => {
+                if (result.isConfirmed) {
+                    posts = posts.filter(p => p.id !== id);
+                    savePosts();
+                    renderPosts();
+                    updateCounter();
+                    Swal.fire({
+                        icon: "success",
+                        title: "Deleted!",
+                        text: "Your post has been deleted.",
+                        timer: 1500,
+                        showConfirmButton: false,
+                        background: "#fdf2f8"
+                    });
+                }
+            });
+        }
 
-  // DELETE
-  if (btn.classList.contains("btn-delete")) {
-    
-    if (confirm("Are you sure you want to delete this post?")) {
-      posts = posts.filter(p => p.id !== id);
-      savePosts();
-      renderPosts();
-      updateCounter();
-      alert("Post deleted successfully!");
-      console.log("Post deleted:", id);
-    }
-  }
-
-  // EDIT
-  if (btn.classList.contains("btn-edit")) {
+        if (btn.classList.contains ("btn-edit")) {
             const post = posts.find(p => p.id === id);
             if (post) {
                 titleInput.value = post.title;
@@ -186,18 +221,32 @@ postsList.addEventListener("click", e => {
                 new bootstrap.Modal(document.getElementById("postModal")).show();
             }
         }
-    });
-
+      })
 //Footer- To view all the posts
 storageCounter.addEventListener("click", e => {
-  e.preventDefault();
-  console.log("View all posts clicked.");
+        e.preventDefault();
+        if (posts.length === 0) {
+            Swal.fire({
+                icon: "info",
+                title: "Empty Diary",
+                text: "No posts yet! Click '+ Write a Petal' to begin.",
+                confirmButtonColor: "#e91e63"
+            });
+            return;
+        }
 
-  if (posts.length === 0) return alert("No posts yet!");
-        let msg = `You have ${posts.length} post${posts.length > 1 ? "s" : ""}:\n\n`;
-        posts.forEach(p => msg += `• ${p.title}\n`);
-        alert(msg);
+        let list = posts.map(p => `• ${p.title}`).join("\n");
+        Swal.fire({
+            title: `You have ${posts.length} post${posts.length > 1 ? "s" : ""}`,
+            text: list,
+            icon: "info",
+            confirmButtonText: "BOOM!",
+            confirmButtonColor: "#e91e63",
+            background: "#fdf2f8",
+            width: "600px"
+        });
     });
-document.getElementById("year").textContent=new Date().getFullYear()
-loadPosts();
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+    loadPosts();
 });
