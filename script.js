@@ -18,13 +18,6 @@ let editingId = null;
 const colors = ["#e91e63", "#ec407a", "#ba68c8", "#9c27b0", "#ab47bc", "#7b1fa2", "#d81b60"];
 let colorIndex = 0;
 
-// // Initial Load
-// document.addEventListener("DOMContentLoaded", () => {
-//   console.log("DOM fully loaded. Loading posts...");
-//   loadPosts();
-//   document.getElementById("year").textContent = new Date().getFullYear();
-// });
-
 // Save Functions
 function loadPosts() {
   const saved = localStorage.getItem("blossomDiaryPosts");
@@ -51,32 +44,28 @@ function escapeHTML(str) {
 // Form 
 function validateForm() {
   let valid = true;
-  titleError.textContent = "";
-  contentError.textContent = "";
+  document.getElementById("titleError").textContent = "";
+  document.getElementById("contentError").textContent = "";
 
   if (!titleInput.value.trim()) {
-    titleError.textContent = "Title is required.";
-    valid = false;
-  }
-  if (!contentInput.value.trim()) {
-    contentError.textContent = "Content is required.";
-    valid = false;
-  }
-
-  if (!valid) {
-    alert("Please fill in all required fields before submitting.");
-  }
-
-  return valid;
+            document.getElementById("titleError").textContent = "Title is required.";
+            valid = false;
+        }
+        if (!contentInput.value.trim()) {
+            document.getElementById("contentError").textContent = "Content is required.";
+            valid = false;
+        }
+        return valid;
 }
 
 // Counter Update
 function updateCounter() {
   const count = posts.length;
   postCount.textContent = count;
-   document.getElementById("s").textContent = count !== 1 ? "s" : "";
-  storageCounter.innerHTML = `You have <strong>${count}</strong> post${count !== 1 ? "s" : ""} saved.`;
-  console.log("Updated counter:", count);
+  const sSpan = document.getElementById("s");
+    if (sSpan) sSpan.textContent = count !== 1 ? "s" : "";
+        storageCounter.innerHTML = `You have <strong>${count}</strong> post${count !== 1 ? "s" : ""} saved.`;
+    
 }
 
 // Render Posts
@@ -98,10 +87,10 @@ function renderPosts() {
   posts.forEach(post => {
     const col = document.createElement("div");
     col.className = "col-md-6 col-lg-4";
-    const bgColor = post.color || "#e91e63";
+    //const bgColor = post.color || "#e91e63";
 
     col.innerHTML = `
-      <article class="post-card" style="background:${bgColor}">
+      <article class="post-card" style="background:${post.color}">
         <h3 class="post-title">${escapeHTML(post.title)}</h3>
         <p class="post-content">${escapeHTML(post.content)}</p>
         <small class="post-meta">Posted on ${new Date(post.timestamp).toLocaleDateString()}</small>
@@ -126,18 +115,14 @@ form.addEventListener("submit", (e) => {
   const content = contentInput.value.trim();
   const color = colors[colorIndex % colors.length];
   colorIndex++;
-
+// UPDATE
   if (editingId) {
-    // UPDATE
-    const post = posts.find(p => p.id === editingId);
-    if (post) {
-      post.title = title;
-      post.content = content;
-    }
-    editingId = null;
-    submitBtn.textContent = "Add Post";
-    document.getElementById("postModalLabel").textContent = "Create New Post";
-     alert("Post updated successfully!");
+            const post = posts.find(p => p.id === editingId);
+            if (post) { post.title = title; post.content = content; }
+            editingId = null;
+            submitBtn.textContent = "Add Post";
+            document.getElementById("postModalLabel").textContent = "Create New Post";
+            alert("Post updated!");
   } else {
     posts.unshift({ 
     id: Date.now().toString(), 
@@ -156,9 +141,17 @@ form.addEventListener("submit", (e) => {
   form.reset();
 
   // Close modal properly
-  const modal = bootstrap.Modal.getInstance(document.getElementById("postModal"));
-  if (modal) modal.hide();
+  const modalElement = document.getElementById("postModal");
+    const modal = bootstrap.Modal.getInstance(modalElement);
+    if (modal) modal.hide();
+    setTimeout(() => {
+        document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+        document.body.classList.remove('modal-open');
+        document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
+    }, 150);
 });
+
 
 // Event Deletion 
 postsList.addEventListener("click", e => {
@@ -183,45 +176,28 @@ postsList.addEventListener("click", e => {
 
   // EDIT
   if (btn.classList.contains("btn-edit")) {
-    const post = posts.find(p => p.id === id);
-    if (!post) return;
-
-    titleInput.value = post.title;
-    contentInput.value = post.content;
-    editingId = id;
-
-    submitBtn.textContent = "Update Post";
-    document.getElementById("postModalLabel").textContent = "Edit Post";
-
-    const modalElement = document.getElementById("postModal");
-    const modal = bootstrap.Modal.getInstance(modalElement)|| new bootstrap.Modal(modalElement);
-    modal.show();
-
-    titleInput.focus();
-    //const id = target.dataset.id
-    //console.log("Editing post:", post);
-
-  }
-});
+            const post = posts.find(p => p.id === id);
+            if (post) {
+                titleInput.value = post.title;
+                contentInput.value = post.content;
+                editingId = id;
+                submitBtn.textContent = "Update Post";
+                document.getElementById("postModalLabel").textContent = "Edit Post";
+                new bootstrap.Modal(document.getElementById("postModal")).show();
+            }
+        }
+    });
 
 //Footer- To view all the posts
 storageCounter.addEventListener("click", e => {
   e.preventDefault();
   console.log("View all posts clicked.");
 
-  if (posts.length === 0) {
-    
-    alert("Your blog is empty. Add a new post!");
-    return;
-  }
-
-  let message = `You have ${posts.length} post${posts.length > 1 ? "s" : ""}:\n\n`;
-  posts.forEach(p => {
-    message += `• ${p.title} (${new Date(p.timestamp).toLocaleDateString()})\n`;
-  });
-  alert(message);
-});
-
+  if (posts.length === 0) return alert("No posts yet!");
+        let msg = `You have ${posts.length} post${posts.length > 1 ? "s" : ""}:\n\n`;
+        posts.forEach(p => msg += `• ${p.title}\n`);
+        alert(msg);
+    });
 document.getElementById("year").textContent=new Date().getFullYear()
 loadPosts();
 });
